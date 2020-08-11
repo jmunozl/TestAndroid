@@ -4,18 +4,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.jalak.testandroid.*
+import com.jalak.testandroid.entities.Item
 import com.jalak.testandroid.entities.ItemDataItem
 import com.jalak.testandroid.entities.UserDataItem
 import com.jalak.testandroid.network.ItemService
 import com.jalak.testandroid.network.RestEngine
 import com.jalak.testandroid.network.UserService
+import com.jalak.testandroid.presenter.ItemPresenterImpl
 import com.jalak.testandroid.util.EncryptText
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainView {
+
+  var itemPresenterImpl: ItemPresenterImpl = ItemPresenterImpl(this)
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
@@ -42,25 +47,15 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun callServiceGetItem() {
-    val encrypt: EncryptText =
-      EncryptText()
-    val text = encrypt.encryptRut("1-9").replace("\n", "")
-    val itemService: ItemService = RestEngine.getRestEngineItems()
-      .create(ItemService::class.java)
-    val result: Call<ItemDataItem> = itemService.getItem(text)
+    itemPresenterImpl.getItem()
+  }
 
-    result.enqueue(object : Callback<ItemDataItem> {
-      override fun onFailure(call: Call<ItemDataItem>, t: Throwable) {
-        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
-      }
+  override fun showItemResult(result: Item) {
+    Toast.makeText(this@MainActivity, " $result ", Toast.LENGTH_SHORT).show()
+  }
 
-      override fun onResponse(call: Call<ItemDataItem>, response: Response<ItemDataItem>) {
-        Toast.makeText(
-          this@MainActivity,
-          "Ok ${response.body()!!.result!!.items[1]}",
-          Toast.LENGTH_SHORT
-        ).show()
-      }
-    })
+
+  override fun errorItemResult(message: String) {
+    Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
   }
 }
