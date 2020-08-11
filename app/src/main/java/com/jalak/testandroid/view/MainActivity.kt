@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity(), MainView {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    btn_aler1.setOnClickListener { buildDialog() }
-    btn_aler2.setOnClickListener { callServiceSetUser(user) }
+    iv_pagar.setOnClickListener { buildDialog() }
+    iv_billetera.setOnClickListener { callServiceSetUser(user) }
 
   }
 
@@ -71,12 +71,14 @@ class MainActivity : AppCompatActivity(), MainView {
     val alertDialog = builder.show()
 
     dialogView.btn_search.setOnClickListener {
-      alertDialog.dismiss()
+
       val rut = dialogView.et_rut.text.toString()
       if (!rut.isEmpty()) {
         callServiceGetItem(rut)
+        alertDialog.dismiss()
       } else {
-        errorItemResult("Debe ingresar un rut")
+        dialogView.et_rut.setError("Debe ingresar un rut")
+        //errorItemResult("Debe ingresar un rut")
       }
     }
 

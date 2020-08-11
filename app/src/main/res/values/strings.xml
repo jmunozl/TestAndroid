@@ -4,4 +4,6 @@
     <string name="cancel">Cancel</string>
     <string name="search">Search</string>
     <string name="close">Close</string>
+    <string name="pagar">Pagar</string>
+    <string name="billetera">Billetera</string>
 </resources>
