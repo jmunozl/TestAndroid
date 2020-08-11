@@ -6,5 +6,6 @@ import com.jalak.testandroid.entities.ItemDataItem
 interface MainView {
 
   fun showItemResult(result: Item)
+  fun showUserResult(id: String)
   fun errorItemResult(message: String)
 }

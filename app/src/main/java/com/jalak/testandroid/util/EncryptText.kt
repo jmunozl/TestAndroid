@@ -1,6 +1,7 @@
 package com.jalak.testandroid.util
 
 import android.util.Base64
+import android.util.Log
 import javax.crypto.Cipher
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.DESKeySpec
@@ -25,6 +26,7 @@ class EncryptText {
         ), Base64.DEFAULT
       )
     } catch (e: Exception) {
+      Log.i("TAG", "encryptRut: $e")
     }
     return cleartext.trim()
   }

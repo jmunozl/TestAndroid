@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TestAndroid</string>
+    <string name="ingrese_rut">Ingrese rut</string>
+    <string name="cancel">Cancel</string>
+    <string name="search">Search</string>
+    <string name="close">Close</string>
 </resources>
